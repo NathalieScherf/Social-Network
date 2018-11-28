@@ -1,0 +1,11 @@
+
+.welcome-container{
+    border: 3px solid black;
+    background: tomato;
+    padding: 10px;
+
+}
+.registration-container{
+    border: 3px solid green;
+    background: gray;
+}
