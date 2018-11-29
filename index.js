@@ -4,6 +4,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 const db = require("./db");
 const bcrypt = require("./bcrypt");
+const csurf = require("csurf");
 
 const cookieSession = require("cookie-session");
 
@@ -18,6 +19,14 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14 //two weeks
     })
 );
+
+app.use(csurf());
+
+app.use(function(req, res, next){
+    res.cookie('mytoken', req.csrfToken());
+    next();
+});
+
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
@@ -30,6 +39,40 @@ if (process.env.NODE_ENV != "production") {
 }
 
 
+app.post("/login", (req, res) => {
+    db.byEmail(req.body.email)
+        .then(function(results) {
+
+            return bcrypt
+                .compare(req.body.password, results[0].pass)
+
+                // send a response
+                .then(function(doesMatch) {
+                    if (doesMatch) {
+                        console.log("logged in");
+                        req.session.userId = results[0].id;
+                        res.json({
+                            success: true
+                        });
+
+                    }
+                    /*    if (!doesMatch) {
+                        console.log("not loged in");
+                        throw new Error();
+                    }*/
+                    else  {
+                        console.log("not loged in");
+                        throw new Error();
+                    }
+                });
+        })
+
+        //load an error message on the page if necessary:
+        .catch(function(err) {
+            console.log("Error in post /login: ", err);
+            res.json({success: false});
+        });
+});
 app.post('/registration', (req, res)=>{
 
     console.log("req.body from registration index.js: ", req.body);
@@ -68,6 +111,7 @@ app.post('/registration', (req, res)=>{
 
 });
 
+
 // put any other get route above this route:
 app.get("*", function(req, res) {
     if (req.session.userId&& req.url == "/welcome"){
@@ -76,6 +120,7 @@ app.get("*", function(req, res) {
     else if(!req.session.userId&& req.url == "/"){
         res.redirect ('/welcome');
     }
+
     else {
         res.sendFile(__dirname + "/index.html");}
 });

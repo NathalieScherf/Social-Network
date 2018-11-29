@@ -23,3 +23,17 @@ exports.registerUser = (first, last, email, hash) => {
             return results.rows;
         });
 };
+
+exports.byEmail = email => {
+    return db
+        .query(
+            `SELECT*
+            FROM users
+        WHERE email=$1`,
+            [email]
+        )
+        .then(function(results) {
+            console.log("log in user from db.js: ", results.rows);
+            return results.rows;
+        });
+};
