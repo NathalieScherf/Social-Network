@@ -17,7 +17,7 @@ export default class Registration extends React.Component{
     }
     handleSubmit(e){
         e.preventDefault();
-        
+
         axios.post('/registration', this.state).then(resp=>{
             console.log("resp on the POST /registration", resp.data);
             console.log(this.state);
@@ -34,17 +34,20 @@ export default class Registration extends React.Component{
     render(){
         return(
             <div className="registration-container">
-                <Link to ='/login'> click here to login!</Link>
+
                 <h1>Please register!</h1>
                 {this.state.success===false &&<h2>Something went wrong</h2>}
+                <Link className="link" to ='/login'> click here to login!</Link>
+                <div  className="form">
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange = {this.handleChange} name = 'first' type ='text' placeholder ='first name' />
+                        <input onChange = {this.handleChange} name = 'last' type ='text' placeholder ='last name' />
+                        <input onChange = {this.handleChange} name = 'email' type ='text' placeholder ='email' />
+                        <input onChange = {this.handleChange} name = 'password' type ='password' placeholder ='password' />
+                        <button> Register </button>
+                    </form>
+                </div>
 
-                <form onSubmit={this.handleSubmit}>
-                    <input onChange = {this.handleChange} name = 'first' type ='text' placeholder ='first name' />
-                    <input onChange = {this.handleChange} name = 'last' type ='text' placeholder ='last name' />
-                    <input onChange = {this.handleChange} name = 'email' type ='text' placeholder ='email' />
-                    <input onChange = {this.handleChange} name = 'password' type ='password' placeholder ='password' />
-                    <button> Register </button>
-                </form>
             </div>
         );
     }

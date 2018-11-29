@@ -1,11 +1,26 @@
 
 .welcome-container{
+    text-align: center;
     border: 3px solid black;
     background: tomato;
     padding: 10px;
 
 }
 .registration-container{
-    border: 3px solid green;
+    border: 3px solid black;
     background: gray;
+}
+.form{
+    margin: 20px;
+}
+.link{
+    margin-top: 10px;
+    padding: 10px;
+    border: solid 1px black;
+    border-radius: 10px;
+    background: gray;
+}
+img{
+    height: 100px;
+    width: auto;
 }

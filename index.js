@@ -111,19 +111,24 @@ app.post('/registration', (req, res)=>{
 
 });
 
+app.get('/welcome', function(req, res) {
+    if (req.session.userId) {
+        res.redirect('/');
+    } else {
+        res.sendFile(__dirname + '/index.html');
+    }
+});
 
 // put any other get route above this route:
-app.get("*", function(req, res) {
-    if (req.session.userId&& req.url == "/welcome"){
-        res.redirect ('/');
+app.get('*', function(req, res) {
+    if (!req.session.userId) {
+        res.redirect('/welcome');
+    } else {
+        res.sendFile(__dirname + '/index.html');
     }
-    else if(!req.session.userId&& req.url == "/"){
-        res.redirect ('/welcome');
-    }
-
-    else {
-        res.sendFile(__dirname + "/index.html");}
 });
+
+
 
 app.listen(8080, function() {
     console.log("I'm listening.");

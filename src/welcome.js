@@ -3,8 +3,11 @@
 // Registration/ runs function from registration:
 
 import React from "react";
-import Registration from "./registration";
-import Login from './login';
+//import Registration from "./registration";
+//import Login from './login';
+import {Registration, Login} from "./test";
+
+
 // react router: hashRouter (not logged in) and browserRouter (logged in)
 import {HashRouter, Route} from 'react-router-dom';
 //if url is /, render welcome component

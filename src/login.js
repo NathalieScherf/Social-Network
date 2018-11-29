@@ -39,12 +39,14 @@ export default class Login extends React.Component{
             <div className="registration-container">
                 <h1>Please log in!</h1>
                 {this.state.success===false &&<h2>Something went wrong</h2>}
-                <Link to ='/'> click here to register!</Link>
-                <form onSubmit={this.handleLoginSubmit}>
-                    <input onChange = {this.handleChange} name = 'email' type ='text' placeholder ='email' />
-                    <input onChange = {this.handleChange} name = 'password' type ='password' placeholder ='password' />
-                    <button> Login </button>
-                </form>
+                <Link className="link" to ='/'> click here to register!</Link>
+                <div  className="form">
+                    <form onSubmit={this.handleLoginSubmit}>
+                        <input onChange = {this.handleChange} name = 'email' type ='text' placeholder ='email' />
+                        <input onChange = {this.handleChange} name = 'password' type ='password' placeholder ='password' />
+                        <button> Login </button>
+                    </form>
+                </div>
             </div>
         );
     }
