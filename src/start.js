@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from './welcome';
-import Logo from './logo';
+
+import App from './app';
 let component;
 // check url:
+// for the not logged in experience:
 if(location.pathname== '/welcome'){
     // render welcome
     component = <Welcome />;
 }
 
-//if in /route; render logo component.
+//if in /route; render loggged in experience component.
 else{
-    component = <Logo />;
+    component = <App />;
 }
 // only call ReactDOM once, i.e. here:
 ReactDOM.render(component, document.querySelector("main"));

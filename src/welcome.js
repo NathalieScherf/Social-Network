@@ -3,9 +3,9 @@
 // Registration/ runs function from registration:
 
 import React from "react";
-//import Registration from "./registration";
-//import Login from './login';
-import {Registration, Login} from "./test";
+import Registration from "./registration";
+import Login from './login';
+//import {Registration, Login} from "./test";
 
 
 // react router: hashRouter (not logged in) and browserRouter (logged in)

@@ -37,3 +37,35 @@ exports.byEmail = email => {
             return results.rows;
         });
 };
+
+exports.getUserById =id =>{
+    return db.query(
+        `SELECT first, last, profilepic FROM users
+        WHERE id =$1`, [id]
+    ). then(function(results){
+        console.log("log: get users by id from db.js", results.rows);
+        return results.rows;
+    });
+};
+exports.updatePic = function updatePic(userID, ProfilePicUrl) {
+    return db.query(`
+        UPDATE users
+        SET imgurl = $2
+        WHERE id = $1
+        RETURNING id, imgurl`, [userID, ProfilePicUrl]);
+};
+
+exports.insertData = (id, profilepic) => {
+    console.log("in query insertData");
+    return db
+        .query(`UPDATE users
+            SET profilepic = $2
+            WHERE id = $1
+            RETURNING id, profilepic`,
+        [id, profilepic]
+        )
+        .then(function(results) {
+            console.log("image inserted", results.rows);
+            return results.rows;
+        });
+};
