@@ -47,13 +47,6 @@ exports.getUserById =id =>{
         return results.rows;
     });
 };
-exports.updatePic = function updatePic(userID, ProfilePicUrl) {
-    return db.query(`
-        UPDATE users
-        SET imgurl = $2
-        WHERE id = $1
-        RETURNING id, imgurl`, [userID, ProfilePicUrl]);
-};
 
 exports.insertData = (id, profilepic) => {
     console.log("in query insertData");

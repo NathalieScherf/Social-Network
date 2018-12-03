@@ -143,7 +143,7 @@ app.get('/user', async (req, res) => {
         res.json({
             user: data[0],
             first: data[0].first,
-            profilePicUrl:'/bee.jpg'
+            profilePicUrl:data[0].profilepic
             /*userId: req.session.userId,
             first: "Nath",
             last:"Scherf",
@@ -164,6 +164,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
         var url = s3Url.s3Url + req.file.filename;
         console.log(req.session.userId,url);
         db.insertData(req.session.userId, url).then(function(results) {
+            console.log("from index upload route" ,results);
             res.json({
                 data: results,
                 success: true
