@@ -1,4 +1,7 @@
+.page{
+    display: grid;
 
+}
 .welcome-container{
     text-align: center;
     border: 3px solid black;
@@ -25,7 +28,20 @@
     width: auto;
 }
 .uploader{
-    background: red;
+    position: absolute;
+    background: white;
+    border-radius: 20px;
+    border: black solid 3px;
+    left:200px;
+    top: 80px;
+    width: 400px;
+    height: 250px;
+    z-index: 2;
+
+}
+.uploader h1{
+    float: right;
+    top: 10px;
 }
 .profilepic-container{
 
@@ -51,6 +67,7 @@
 
 }
 .profile{
+    height: auto;
     background-color: pink;
 }
 .profile .profilepic-container img{
@@ -58,6 +75,17 @@ height: 200px;
 width: 200px;
     position: absolute;
     left:20px;
+}
+.bio-text{
+    border: 2px solid black;
+    position: absolute;
+    left: 230px;
+}
+textarea{
+    border: 2px solid black;
+    background: gray;
+    width: 200px;
+    height: 300px;
 }
 
 .main-box{

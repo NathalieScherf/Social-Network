@@ -143,7 +143,9 @@ app.get('/user', async (req, res) => {
         res.json({
             user: data[0],
             first: data[0].first,
-            profilePicUrl:data[0].profilepic
+            last: data[0].last,
+            profilePicUrl:data[0].profilepic,
+            bio: data[0].bio
             /*userId: req.session.userId,
             first: "Nath",
             last:"Scherf",
@@ -192,7 +194,18 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
         last:"Scherf",
         profilePicUrl:'/bee.jpg'});*/
 
+app.post('/add-bio', function(req, res){
+    db.insertBio(req.session.userId, req.body.bio).then(function(results){
+        console.log("from add bio route" ,results);
+        res.json({
+            data: results,
+            success: true
+        });
+    }).catch(function(err) {
+        console.log("Error in post /upload: ", err);
 
+    });
+});
 
 app.get('/welcome', function(req, res) {
     if (req.session.userId) {

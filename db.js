@@ -40,7 +40,7 @@ exports.byEmail = email => {
 
 exports.getUserById =id =>{
     return db.query(
-        `SELECT first, last, profilepic FROM users
+        `SELECT first, last, profilepic, bio FROM users
         WHERE id =$1`, [id]
     ). then(function(results){
         console.log("log: get users by id from db.js", results.rows);
@@ -49,7 +49,7 @@ exports.getUserById =id =>{
 };
 
 exports.insertData = (id, profilepic) => {
-    console.log("in query insertData");
+    //console.log("in query insertData");
     return db
         .query(`UPDATE users
             SET profilepic = $2
@@ -59,6 +59,19 @@ exports.insertData = (id, profilepic) => {
         )
         .then(function(results) {
             console.log("image inserted", results.rows);
+            return results.rows;
+        });
+};
+
+exports.insertBio=(id, bio)=>{
+    console.log("in query insertBio");
+    return db.query(`UPDATE users
+        SET bio = $2
+        WHERE id = $1
+        RETURNING *`,
+    [id, bio])
+        .then(function(results) {
+            console.log("bio inserted", results.rows);
             return results.rows;
         });
 };

@@ -8,7 +8,7 @@ export default class Uploader extends React.Component{
 
     }
     handleChange(e){
-    //    console.log("handleChange is running", e.target.files[0]);
+        console.log("handleChange is running", e.target.files[0]);
         this.setState({
             [e.target.name ]: e.target.files[0]
         });
@@ -34,7 +34,7 @@ export default class Uploader extends React.Component{
     render(){
         return(
             <div className='uploader'>
-                <h1>Change your profile pic:</h1>
+                <h2>Change your profile pic:</h2>
                 <div className='closer'><h1 onClick={this.props.closeComponent}>X</h1></div>
                 <form onSubmit={this.handleSubmit}>
                     <input name='file' onChange ={this.handleChange} type ='file' accept ='image/*'/>

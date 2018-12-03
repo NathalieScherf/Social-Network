@@ -19,8 +19,8 @@ export default class Registration extends React.Component{
         e.preventDefault();
 
         axios.post('/registration', this.state).then(resp=>{
-            console.log("resp on the POST /registration", resp.data);
-            console.log(this.state);
+        //    console.log("resp on the POST /registration", resp.data);
+        //    console.log(this.state);
             // if everything goes well: redirect to /
             if(resp.data.success==true){
                 location.replace('/');}

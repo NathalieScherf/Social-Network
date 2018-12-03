@@ -15,13 +15,12 @@ export default class App extends React.Component{
         this.showUploader=this.showUploader.bind(this);
         this.changeImg= this.changeImg.bind(this);
         this.closeComponent=this.closeComponent.bind(this);
+        this.setBio=this.setBio.bind(this);
     }
     // to show uploader:
     showUploader(){
         this.setState({
             uploaderIsVisible:true
-            // go to app and change some things:
-            // var something ="profilePicUrl", uploaderIsVisible
         }, ()=> console.log("state in showUploader", this.state.profilePicUrl));
     }
     changeImg(profilePicUrl) {
@@ -36,6 +35,12 @@ export default class App extends React.Component{
             uploaderIsVisible: false
         });
 
+    }
+    setBio(bio){
+        console.log("bio!");
+        this.setState({
+            bio: bio
+        });
     }
     //#2 mount: good place for axios requests to get info about the user:
     componentDidMount(){
@@ -53,7 +58,7 @@ export default class App extends React.Component{
     // #1 render
     render(){
         return(
-            <div>
+            <div className='page'>
                 <div className='profile-header-container'>
                     <Logo/>
                     <ProfilePic
@@ -63,15 +68,13 @@ export default class App extends React.Component{
                     />
                 </div>
                 <div className='main-box'>
-                    <h1> Welcome to app main! </h1>
+                    <h1> Welcome {this.state.first}! </h1>
                     <BrowserRouter>
 
                         <Route path='/' render={()=>{ return < Profile
                             id={this.state.id}
                             profilePicUrl={this.state.profilePicUrl}
                             first={this.state.first}
-
-                             
                             last={this.state.last}
                             bio={this.state.bio}
                             setBio={this.setBio}
