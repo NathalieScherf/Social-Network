@@ -4,8 +4,9 @@ import Logo from './logo';
 import ProfilePic from './profilepic';
 import Uploader from './uploader';
 import Profile from './profile';
-
+import OtherPersonProfile from './otherpersonprofile';
 import {BrowserRouter, Route} from 'react-router-dom';
+
 export default class App extends React.Component{
     constructor(){
         super();
@@ -70,17 +71,22 @@ export default class App extends React.Component{
                 <div className='main-box'>
                     <h1> Welcome {this.state.first}! </h1>
                     <BrowserRouter>
-
-                        <Route path='/' render={()=>{ return < Profile
-                            id={this.state.id}
-                            profilePicUrl={this.state.profilePicUrl}
-                            first={this.state.first}
-                            last={this.state.last}
-                            bio={this.state.bio}
-                            setBio={this.setBio}
-                            showUploader={this.showUploader}/>;
-                        }}/>
-
+                        <div>
+                            <Route exact path='/' render={()=>{ return < Profile
+                                id={this.state.id}
+                                profilePicUrl={this.state.profilePicUrl}
+                                first={this.state.first}
+                                last={this.state.last}
+                                bio={this.state.bio}
+                                setBio={this.setBio}
+                                showUploader={this.showUploader}/>;
+                            }}/>
+                            <Route path ='/user/:id' render={props=>(
+                                <OtherPersonProfile { ...props }
+                                    key ={props.match.url}
+                                />
+                            )}/>
+                        </div>
                     </BrowserRouter>
                     {this.state.uploaderIsVisible && (<Uploader
                         changeImg= {this.changeImg}
@@ -91,6 +97,3 @@ export default class App extends React.Component{
         );
     }
 }
-
-//in browserRouter path= '/' to get the profile to load on first page
-// user/id is for tomorrow to laos individual pages

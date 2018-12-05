@@ -40,10 +40,19 @@ exports.byEmail = email => {
 
 exports.getUserById =id =>{
     return db.query(
+        `SELECT first, last, profilepic, bio, id FROM users
+        WHERE id =$1`, [id]
+    ). then(function(results){
+        //console.log("log: get users by id from db.js", results.rows);
+        return results.rows;
+    });
+};
+exports.getOtherUser=id =>{
+    return db.query(
         `SELECT first, last, profilepic, bio FROM users
         WHERE id =$1`, [id]
     ). then(function(results){
-        console.log("log: get users by id from db.js", results.rows);
+        //console.log("log: get other user by id from db.js", results.rows);
         return results.rows;
     });
 };
@@ -74,4 +83,54 @@ exports.insertBio=(id, bio)=>{
             console.log("bio inserted", results.rows);
             return results.rows;
         });
+};
+
+// part 6: friendships:
+
+exports.createFriendship=(sender, receiver)=>{
+
+    return db.query(
+        `INSERT INTO  friendships (sender_id, receiver_id)
+        VALUES ($1, $2)
+        RETURNING *`,
+        [sender, receiver]
+    ).then(function(results) {
+
+        return results.rows;
+    });
+};
+exports.acceptFriendship=(receiver,sender)=>{
+
+    return db.query(
+        `UPDATE   friendships
+        SET accepted = true
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)
+        RETURNING *`,
+        [ receiver,sender]
+    ).then(function(results) {
+
+        return results.rows;
+    });
+};
+exports.deleteFriendship=(receiver,sender)=>{
+
+    return db.query(
+        `DELETE  FROM friendships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)`,
+        [ receiver,sender]
+    ).then(function(results) {
+
+        return results.rows;
+    });
+};
+exports.getFriendships=(sender, receiver)=>{
+    return db.query(`SELECT*FROM friendships
+    WHERE (receiver_id = $1 AND sender_id = $2)
+    OR (receiver_id = $2 AND sender_id = $1)
+        `, [sender, receiver]).then(function(results){
+
+        return results.rows;
+    });
 };

@@ -136,20 +136,18 @@ app.post('/registration', (req, res)=>{
 });
 
 app.get('/user', async (req, res) => {
-    console.log(" get user sending request works");
+//    console.log(" get user sending request works");
     try {
         const data = await db.getUserById(req.session.userId);
 
         res.json({
             user: data[0],
+            id: data[0].id,
             first: data[0].first,
             last: data[0].last,
             profilePicUrl:data[0].profilepic,
             bio: data[0].bio
-            /*userId: req.session.userId,
-            first: "Nath",
-            last:"Scherf",
-            profilePicUrl:'/bee.jpg'*/
+
         });
     } catch (e) {
         res.json({
@@ -158,6 +156,84 @@ app.get('/user', async (req, res) => {
     }
 });
 
+app.get('/user/:id/json',  async (req, res) => {
+    if(req.params.id==req.session.userId){
+        return (
+            res.json({
+                status: 'sameUser'
+            })
+        );
+    }
+
+    try {
+        const data = await db.getOtherUser(req.params.id);
+
+        res.json({
+
+            first: data[0].first,
+            last: data[0].last,
+            profilePicUrl:data[0].profilepic,
+            bio: data[0].bio
+
+        });
+    } catch (e) {
+        res.json({
+            success: false
+        });
+    }
+});
+app.post('/friendrequest/:id', async (req,res)=> {
+
+    db.createFriendship(req.session.userId, req.params.id).then(function(results){
+        //console.log("from friendrequest  route", results);
+        res.json({
+            data: results,
+            success: true
+        });
+    }).catch(function(err) {
+        console.log("Error in post /friendrequest: ", err);
+
+    });
+}
+);
+app.post('/acceptfriend/:id', function(req,res){
+    db.acceptFriendship(req.session.userId, req.params.id).then(function(results){
+        console.log("from accept friend  route", results);
+        res.json({
+            data: results,
+
+        });
+    }).catch(function(err) {
+        console.log("Error in post /acceptfriend: ", err);
+
+    });
+});
+app.post('/deletefriends/:id', function(req,res){
+    db.deleteFriendship(req.session.userId, req.params.id).
+        then(function(results){
+            console.log("from delete friend  route", results);
+            res.json({
+                data: results,
+            });
+        }).catch(function(err) {
+            console.log("Error in post /deleteFriendship: ", err);
+        });
+});
+app.get('/friends/:id', function(req,res){
+    console.log("from get freinds",req.session.userId, req.params.id);
+    db.getFriendships(req.session.userId, req.params.id).then(function(results){
+        console.log("from get friends", results);
+        res.json({
+            data:results,
+            user: req.session.userId
+        });
+        
+
+    }).catch(function(err) {
+        console.log("Error in post /friendrequest: ", err);
+
+    });
+});
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     console.log(req.file);
     // If nothing went wrong the file is already in the uploads directory
@@ -173,7 +249,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
             });
         }).catch(function(err) {
             console.log("Error in post /upload: ", err);
-        //res.json({success: false});
+
         });
     } else {
         res.json({
@@ -181,18 +257,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
         });
     }
 });
-//upload image to uplaods directory
-// uploas image to amazon
-// insert image into db: updata query
-// send response back to uploader component
-// go to database and get user information :
-// frist, last, profilePicUrl
-// send back to axios as response
-/*    res.json({
-        userId: req.session.userId,
-        first: "Nath",
-        last:"Scherf",
-        profilePicUrl:'/bee.jpg'});*/
+
 
 app.post('/add-bio', function(req, res){
     db.insertBio(req.session.userId, req.body.bio).then(function(results){

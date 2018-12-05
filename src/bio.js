@@ -45,12 +45,12 @@ export default class Bio extends React.Component{
 
 
     render(){
-        console.log(this.state.editing, this.props.bio);
+        //console.log(this.state.editing, this.props.bio);
         if(this.props.bio&&!this.state.editing){
             return(
 
                 <div className='bio-text'>
-                    <p>Bio is present!</p>
+                    <p>Bio:</p>
                     <p>{this.props.bio}</p>
                     <p onClick={this.showEditor}> Edit your bio</p>
                 </div>);
@@ -58,7 +58,7 @@ export default class Bio extends React.Component{
         else if(this.state.editing){
             console.log("editing");
             return(
-                <div className='bio-text'>
+                <div className='bio'>
                     <form onSubmit={this.handleSubmit}>
                         <label>
                             <textarea name='bio'  onChange={this.handleChange} />
@@ -73,12 +73,5 @@ export default class Bio extends React.Component{
                     <p onClick={this.showEditor}> Edit your bio</p>
                 </div>);}
     }
-/*
-
-//    <textarea defaultValue={this.state.bio}/>
-value={this.state.value}
-2. `Bio` - Get passed a function for setting the bio.
-   2. state determines if it shows the text of the bio or a textarea for editing the bio
-*/
 
 }

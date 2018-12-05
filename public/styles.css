@@ -1,6 +1,8 @@
 .page{
     display: grid;
 
+
+
 }
 .welcome-container{
     text-align: center;
@@ -45,29 +47,27 @@
 }
 .profilepic-container{
 
-    float: right;
-
+float: right;
 }
-.profilepic-container .smallimg{
+.profilepic-container img{
     height: 100px;
     width: auto;
-    float: right;
+
     border-radius: 20px;
 
 }
 .loggedin-container{
 
-    float: left;
-    margin-right: 500px;
+    margin-right: 450px;
+    width: 200px;
 }
 
 .profile-header-container{
-    display: inline-block;
     background: orange;
-
+display: flex;
 }
 .profile{
-    height: auto;
+    height: 400px;
     background-color: pink;
 }
 .profile .profilepic-container img{
@@ -82,12 +82,48 @@ width: 200px;
     left: 230px;
 }
 textarea{
+
+
+        left: 230px;
     border: 2px solid black;
-    background: gray;
+    background: white;
     width: 200px;
     height: 300px;
 }
 
 .main-box{
+
     background: gray;
+    height: 500px;
+}
+
+.opp-container{
+
+    background: green;
+}
+
+ /*.otherImg {
+
+    width: 300px;
+    height: 400px;
+}*/
+ .opp-container img {
+float: left;
+    width: 200px;
+    height: auto;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.opp-container .bio{
+    border: 2px solid black;
+width: 500px;
+margin: 20px;
+    float:right;
+}
+.bio{
+
+width: 500px;
+margin: 20px;
+   float:right;
 }
