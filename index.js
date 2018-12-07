@@ -197,6 +197,7 @@ app.post('/friendrequest/:id', async (req,res)=> {
 }
 );
 app.post('/acceptfriend/:id', function(req,res){
+    console.log("inside accept friend from index.js");
     db.acceptFriendship(req.session.userId, req.params.id).then(function(results){
         console.log("from accept friend  route", results);
         res.json({
@@ -214,6 +215,7 @@ app.post('/deletefriends/:id', function(req,res){
             console.log("from delete friend  route", results);
             res.json({
                 data: results,
+                
             });
         }).catch(function(err) {
             console.log("Error in post /deleteFriendship: ", err);

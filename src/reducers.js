@@ -1,9 +1,5 @@
 
 
-//if(action.type=='ACCEPT_FRIEND_REQUEST'){
-// create a new state object with same props as old
-// one object has a change in accepted from true to false
-//}
 
 export default function reducer(state = {}, action) {
     if (action.type == 'RECEIVE_FRIENDS_WANNABES') {
@@ -13,34 +9,28 @@ export default function reducer(state = {}, action) {
 
     }
     if (action.type == 'UNFRIEND') {
-        //hier kommt kein data zurück
-        return Object.assign({}, state, {
-            users: action.users
-        });
+        //hier kommt kein data zurück aber ein id von action
+        state = {
+            ...state,
+            users: state.users && state.users.filter(user => {
+                if (user.id == action.id) {
+                    return ;
+                } else {
+                    return {user};
+                }
+            })
+        };
 
     }
     if (action.type == 'ACCEPT_FRIEND_REQUEST') {
-        /*state = {
-         ...state.user, accepted: true*/
-        return Object.assign({}, state, {
-            users: action.users
-        });
-
-    }
-
-    console.log("state from reducer: ", state);
-    return state;
-}
-
-/*    if (action.type == "MAKE_HOT") {
 
         state = {
             ...state,
-            users: state.users.map(user => {
-                if (user.id == action.hotId) {
+            users: state.users && state.users.map(user => {
+                if (user.id == action.id) {
                     return {
                         ...user,
-                        hot: true
+                        accepted: true
                     };
                 } else {
                     return user;
@@ -49,4 +39,7 @@ export default function reducer(state = {}, action) {
         };
 
     }
-*/
+
+    console.log("state from reducer: ", state);
+    return state;
+}

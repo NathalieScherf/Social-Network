@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-/* Three action creators
-    All three make ajax requests and after the request is successful
-    return an action with the appropriate type and the relevant data*/
+import axios from './axios';
 
 
 // `receiveFriendsAndWannabes` (no args)
@@ -12,7 +8,7 @@ export async function receiveFriendsAndWannabes() {
     console.log("actions FandW", data);
     return {
         type: 'RECEIVE_FRIENDS_WANNABES',
-        users: data
+        users: data.data
     };
 }
 
@@ -21,21 +17,22 @@ export async function receiveFriendsAndWannabes() {
 //`unfriend` (id of other person)
 
 
-export async function unfriend(idOther) {
-    const { data } = await axios.post('/deletefriends/'+ idOther);
-    console.log("actions unfriend", data);
+export async function unfriend(id) {
+    const { data } = await axios.post('/deletefriends/'+ id);
+    console.log("actions unfriend", data, id);
     return {
         type: 'UNFRIEND',
-        users: data
+        id: id
     };
 }
 //`acceptFriendRequest` (id of other person)
 
-export async function acceptFriendRequest(idOther) {
-    const { data } = await axios.post('/acceptfriend/'+ idOther);
+export async function acceptFriendRequest(id) {
+    console.log("in accept friend request in actions.js", id);
+    const { data } = await axios.post('/acceptfriend/'+ id);
     console.log("actions accept friends", data);
     return {
         type: 'ACCEPT_FRIEND_REQUEST',
-        users: data
+        id: id
     };
 }

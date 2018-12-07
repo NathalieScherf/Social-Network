@@ -1,7 +1,7 @@
 import React from 'react';
 //import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-//change to my functions from actions.js
+
 import { receiveFriendsAndWannabes, unfriend, acceptFriendRequest } from './actions';
 
 class Friends extends React.Component {
@@ -48,28 +48,7 @@ class Friends extends React.Component {
 }
 
 
-/*
 
-
- return (
-            <div id="hot-or-not">
-                <div className="user">
-                    <img src={users[0].image} />
-                    <div className="buttons">
-
-                        <button onClick = { () => this.props.dispatch(makeHot(users[0].id)) } >Hot</button>
-
-                        <button>Not</button>
-                    </div>
-                </div>
-                <nav>
-                    <Link to="/hot">See who&apos;s hot</Link>
-                    <Link to="/not">See who&apos;s not</Link>
-                </nav>
-            </div>
-        );
-    }
-}*/
 
 // react integration
 
@@ -77,19 +56,14 @@ function mapStateToProps(state) {
     var list = state.users;
     console.log("list from friends.js", list);
     return {
-        friends: list && list.data.filter(
+        friends: list && list.filter(
             user => user.accepted == true
         ),
-        wannabes: list && list.data.filter(
+        wannabes: list && list.filter(
             user => !user.accepted
         )
     };
 }
 
-/*
-const mapStateToProps = function(state) {
-    return {
-        users: state.users && state.users.filter(user => user.hot == null)
-    };
-};*/
+
 export default connect(mapStateToProps)(Friends);
