@@ -227,10 +227,20 @@ app.get('/friends/:id', function(req,res){
             data:results,
             user: req.session.userId
         });
-        
-
     }).catch(function(err) {
-        console.log("Error in post /friendrequest: ", err);
+        console.log("Error in get /friends/:id: ", err);
+
+    });
+});
+app.get('/friendsAndWannabes', function(req,res){
+    console.log("in friends and wannabes");
+    db.getFandWs(req.session.userId).then(function(results){
+        console.log("from get /friendsAndWannabes", results);
+        res.json({
+            data: results,
+        });
+    }).catch(function(err) {
+        console.log("Error in /friendsAndWannabes: ", err);
 
     });
 });

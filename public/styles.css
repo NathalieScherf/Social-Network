@@ -1,13 +1,16 @@
 .page{
     display: grid;
 
+font-family: 'Source Sans Pro', sans-serif;
 
-
+}
+h1{
+    color: #fb929e;
 }
 .welcome-container{
     text-align: center;
     border: 3px solid black;
-    background: tomato;
+    background: #771144;
     padding: 10px;
 
 }
@@ -63,7 +66,7 @@ float: right;
 }
 
 .profile-header-container{
-    background: orange;
+    background: #05004e;
 display: flex;
 }
 .profile{
@@ -86,15 +89,15 @@ textarea{
 
         left: 230px;
     border: 2px solid black;
-    background: white;
+    background: #ffcccc;
     width: 200px;
     height: 300px;
 }
 
 .main-box{
 
-    background: gray;
-    height: 500px;
+background: #771144;
+/*    height: 500px;*/
 }
 
 .opp-container{
@@ -126,4 +129,16 @@ margin: 20px;
 width: 500px;
 margin: 20px;
    float:right;
+}
+
+.friendsAndWannabes img{
+    width: 150px;
+    height: auto;
+
+}
+
+.people{
+
+width: 350px;
+
 }
