@@ -43,7 +43,7 @@ exports.getUserById =id =>{
         `SELECT first, last, profilepic, bio, id FROM users
         WHERE id =$1`, [id]
     ). then(function(results){
-        //console.log("log: get users by id from db.js", results.rows);
+        
         return results.rows;
     });
 };
@@ -148,4 +148,11 @@ exports.getFandWs =(id)=>{
 `, [id]).then(function(results){
         return results.rows;
     });
+};
+
+//part 8: online users: with different query syntax
+
+exports.getOnlineUsers= (arrayOfIds) => {
+    const query = `SELECT id, first, last, profilepic FROM users WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]);
 };

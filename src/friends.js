@@ -7,27 +7,34 @@ import { receiveFriendsAndWannabes, unfriend, acceptFriendRequest } from './acti
 class Friends extends React.Component {
     componentDidMount() {
         this.props.dispatch(receiveFriendsAndWannabes());
+        this.goToFriend=this.goToFriend.bind(this);
     }
+    goToFriend(id){
+        console.log("id of your friend", id);
+        location.replace('/user/'+id);
 
+    }
 
     render() {
         return (
             <div className='friendsAndWannabes'>
                 <h1>These are your friends</h1>
+                <div className='friends'>
+                    {this.props.friends && this.props.friends.map(
 
-                {this.props.friends && this.props.friends.map(
+                        friend => {
+                            return (
+                                <div className='people' key={friend.id} >
 
-                    friend => {
-                        return (
-                            <div className='people' key={friend.id} >
-                                <img src={friend.profilepic} />
+                                    <img onClick={() => this.goToFriend(friend.id)} src={friend.profilepic||"/profile_default.png"} />
 
-                                <h3>{friend.first} {friend.last}</h3>
-                                <p onClick={() => this.props.dispatch(unfriend(friend.id))}>End this friendship</p>
-                            </div>
-                        );
-                    }
-                )}
+                                    <h3>{friend.first} {friend.last}</h3>
+                                    <p onClick={() => this.props.dispatch(unfriend(friend.id))}>End this friendship</p>
+                                </div>
+                            );
+                        }
+                    )}
+                </div>
                 <h1>These are your wannabes</h1>
 
                 {this.props.wannabes && this.props.wannabes.map(

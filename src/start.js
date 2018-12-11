@@ -9,6 +9,7 @@ import reducer from './reducers';
 import Welcome from './welcome';
 
 import App from './app';
+import {initSocket} from './socket';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
@@ -23,7 +24,7 @@ if(location.pathname== '/welcome'){
 //if in /route; render loggged in experience component.
 else{
 
-    component = <Provider store={store}><App /></Provider>;
+    component = (initSocket(store), <Provider store={store}><App /></Provider>);
 
     //component = <App />;
 }

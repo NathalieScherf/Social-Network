@@ -39,7 +39,36 @@ export default function reducer(state = {}, action) {
         };
 
     }
+    if(action.type=='USERS_ONLINE'){
+        console.log(action);
+        return Object.assign({}, state, {
+            onlineUsers: action.onlineUsers
+        });
+    }
 
+    if(action.type=='NEW_USER_ONLINE'){
+        console.log("new user online", action);
+        state = {
+            ...state,
+            onlineUsers:  [...state.onlineUsers, action.newUser[0]]
+        };
+    }
+    if(action.type=='USERS_DISCONNECT'){
+        console.log("action from reducer disconnect", action.id);
+        //filter onlineusers, remove user id: of leaver
+        state = {
+            ...state,
+            onlineUsers: state.onlineUsers && state.onlineUsers.filter(onlineUser => {
+                if (onlineUser.id == action.id) {
+                    return ;
+                } else {
+                    return {onlineUser};
+                }
+            })
+        };
+
+
+    }
     console.log("state from reducer: ", state);
     return state;
 }

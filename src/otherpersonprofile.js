@@ -31,26 +31,27 @@ export default class OtherPersonProfile extends React.Component{
         return (
             <div className='opp-container'>
 
+                <div className='linksToUsers'>
+                    <p><Link to='/user/1'>user 1</Link></p>
+                    <br/>
+                    <p><Link to='/user/2'>user 2</Link></p>
+                    <br/>
+                    <p><Link to='/user/3'>user 3</Link></p></div>
+                <div className='profile'>
+                    <h1> You are visiting: {this.state.first} {this.state.last}</h1>
+                    {this.state.profilePicUrl == null && <div className='otherImg'>
+                        <img className='smallimg' src={"/profile_default.png"} />
+                    </div>}
+                    <div className='otherImg'>
+                        <img className='smallimg' src={this.state.profilePicUrl} />
+                    </div>
+                    <FriendButton otherUserId ={this.props.match.params.id} />
 
-                <Link to='/user/1'>user 1</Link>
-                <br/>
-                <Link to='/user/2'>user 2</Link>
-                <br/>
-                <Link to='/user/3'>user 3</Link>
-                <h1> You are visiting: {this.state.first} {this.state.last}</h1>
-                {this.state.profilePicUrl == null && <div className='otherImg'>
-                    <img className='smallimg' src={"/profile_default.png"} />
-                </div>}
-                <div className='otherImg'>
-                    <img className='smallimg' src={this.state.profilePicUrl} />
+                    <div className='bio-text'>
+                        <p>Bio:</p>
+                        <p>{this.state.bio}</p>
+                    </div>
                 </div>
-                <FriendButton otherUserId ={this.props.match.params.id} />
-
-                <div className='bio'>
-                    <p>Bio:</p>
-                    <p>{this.state.bio}</p>
-                </div>
-
             </div>
 
         );

@@ -36,3 +36,35 @@ export async function acceptFriendRequest(id) {
         id: id
     };
 }
+
+//getOnlineUsers
+
+export async function getOnlineUsers(onliners) {
+    //console.log("in get online users in actions.js", onliners);
+
+    return {
+        type: 'USERS_ONLINE',
+        onlineUsers: onliners
+    };
+}
+//inform about new users:
+
+export async function informAboutNewUser(joiner) {
+    console.log("in new users users in actions.js", joiner);
+
+    return {
+        type: 'NEW_USER_ONLINE',
+        newUser: joiner
+    };
+}
+
+
+//remove users who log out
+export async function removeOnlineUsers(leaverId) {
+    console.log("in leavers in actions.js", leaverId);
+
+    return {
+        type: 'USERS_DISCONNECT',
+        id: leaverId
+    };
+}

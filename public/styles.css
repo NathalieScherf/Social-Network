@@ -2,6 +2,7 @@
     display: grid;
 
 font-family: 'Source Sans Pro', sans-serif;
+margin: 20px;
 
 }
 h1{
@@ -37,6 +38,7 @@ h1{
     background: white;
     border-radius: 20px;
     border: black solid 3px;
+    padding: 10px;
     left:200px;
     top: 80px;
     width: 400px;
@@ -49,10 +51,10 @@ h1{
     top: 10px;
 }
 .profilepic-container{
-
 float: right;
 }
 .profilepic-container img{
+
     height: 100px;
     width: auto;
 
@@ -68,26 +70,28 @@ float: right;
 .profile-header-container{
     background: #05004e;
 display: flex;
+justify-content: space-around;
+padding: 20px;
 }
 .profile{
     height: 400px;
-    background-color: pink;
+    background-color: #fcf8f3;
+    padding: 20px;
 }
 .profile .profilepic-container img{
 height: 200px;
 width: 200px;
     position: absolute;
-    left:20px;
+    left:60px;
 }
 .bio-text{
     border: 2px solid black;
     position: absolute;
-    left: 230px;
+
+    left: 290px;
 }
 textarea{
-
-
-        left: 230px;
+    left: 230px;
     border: 2px solid black;
     background: #ffcccc;
     width: 200px;
@@ -95,21 +99,21 @@ textarea{
 }
 
 .main-box{
-
+padding: 20px;
 background: #771144;
 /*    height: 500px;*/
 }
 
 .opp-container{
 
-    background: green;
+    background:  #fb929e;
 }
 
- /*.otherImg {
+.linksToUsers p{
+display: inline;
+width: 100%;
+}
 
-    width: 300px;
-    height: 400px;
-}*/
  .opp-container img {
 float: left;
     width: 200px;
@@ -131,14 +135,28 @@ margin: 20px;
    float:right;
 }
 
+.friendsAndWannabes{
+    display: flex;
+    flex-wrap: wrap;
+
+justify-content: space-around;
+}
+
+.friends{
+    display: flex;
+
+}
 .friendsAndWannabes img{
     width: 150px;
     height: auto;
+    border-radius: 20px;
 
 }
 
 .people{
-
+display: inline;
+padding-top: 30px;
+padding-left: 20px;
 width: 350px;
 
 }

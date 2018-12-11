@@ -7,6 +7,9 @@ import Profile from './profile';
 import OtherPersonProfile from './otherpersonprofile';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './friends';
+import OnlineUsers from './onlineUsers';
+import CuteAnimals from './cuteAnimals';
+import Chat from './chat';
 export default class App extends React.Component{
     constructor(){
         super();
@@ -89,6 +92,15 @@ export default class App extends React.Component{
                             )}/>
                             <Route path ='/friends' render={()=>{
                                 return <Friends />;
+                            }}/>
+                            <Route path ='/onlineusers' render={()=>{
+                                return <OnlineUsers />;
+                            }}/>
+                            <Route path ='/cuteAnimals' render={()=>{
+                                return <CuteAnimals />;
+                            }}/>
+                            <Route path ='/chat' render={()=>{
+                                return <Chat />;
                             }}/>
                         </div>
                     </BrowserRouter>

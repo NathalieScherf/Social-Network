@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server, { origins: 'localhost:8080' });// if deployed add an ||www.name of my website.com
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const db = require("./db");
@@ -38,14 +40,17 @@ var uploader = multer({
 
 app.use(compression());
 app.use(express.static('./public'));
-app.use(
-    cookieSession({
-        secret:
-            process.env.SESSION_SECRET || require("./secrets").sessionSecret, // any string also in the encrypted cookie
-        maxAge: 1000 * 60 * 60 * 24 * 14 //two weeks
-    })
-);
 
+
+const cookieSessionMiddleware = cookieSession({
+    secret:     process.env.SESSION_SECRET || require("./secrets").sessionSecret, // any string also in the encrypted cookie
+    maxAge: 1000 * 60 * 60 * 24 * 90//two weeks
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 app.use(csurf());
 
 app.use(function(req, res, next){
@@ -215,7 +220,7 @@ app.post('/deletefriends/:id', function(req,res){
             console.log("from delete friend  route", results);
             res.json({
                 data: results,
-                
+
             });
         }).catch(function(err) {
             console.log("Error in post /deleteFriendship: ", err);
@@ -237,7 +242,7 @@ app.get('/friends/:id', function(req,res){
 app.get('/friendsAndWannabes', function(req,res){
     console.log("in friends and wannabes");
     db.getFandWs(req.session.userId).then(function(results){
-        console.log("from get /friendsAndWannabes", results);
+        //console.log("from get /friendsAndWannabes", results);
         res.json({
             data: results,
         });
@@ -302,7 +307,91 @@ app.get('*', function(req, res) {
 });
 
 
-
-app.listen(8080, function() {
+//changed from app. to server. as socket io was added:
+server.listen(8080, function() {
     console.log("I'm listening.");
 });
+
+// all of the server side socket code goes here below server.listen
+// onlineUsers object wil maintain a list of everyone cureently online:
+let onlineUsers={};
+// create a console log for when the connetion is open (and an object is returned)
+
+
+io.on('connection', socket =>{
+    console.log(`User with socket id ${socket.id} just connected`);
+    let socketId= socket.id;
+    //make req.session.userId available in socket:
+    let userId =socket.request.session.userId;
+    // set key to socketId and userId as value
+    onlineUsers[socketId]=userId;
+    // create an array of all users online:
+    let arrOfIds=Object.values(onlineUsers);
+
+    //load present users
+    db.getOnlineUsers(arrOfIds).then( results =>{
+        console.log('results of query users by id', results.rows);
+        socket.emit('onlineUsers', results.rows);
+
+    }).catch( err=> {
+        console.log("error in get users by ids in index.js", err);
+    });
+    console.log(arrOfIds);
+    if(arrOfIds.filter(id => id == userId).length == 1){
+
+        console.log(userId);
+        db.getUserById(userId).then(results=>{
+
+            console.log("what im sending to user joined", results);
+            socket.broadcast.emit("userJoined", results);});
+    }
+
+    //check if user is new, emit brodcast
+    //filter through users, see if id only in in there once, if yes, it is new. => emit broadcast
+    socket.on('disconnect', function(){
+
+        console.log(`user with ${userId} just disconnected`);
+        // need to figure out if the user acctuall left the site, not just closed one tab.
+        //check if user id is in object
+        delete onlineUsers[socketId];
+        if(!Object.values(onlineUsers).includes(userId)){
+
+            io.sockets.emit('userLeft', userId);}
+    });
+
+
+
+
+    //chat: bulid array of 10 most resent messages and emit it to the client. , put it into global state
+    socket.on('chatMessage', msg=>{
+        console.log("msg from chat in index", msg);
+        // store in the database, get info about user: frist last img.
+        //store everythin in an object and send it back to the front, first to socket (io.socket.emit), then redux
+        let chatObj={};
+    });
+
+    //send message to client: two args: name and  data in message
+
+    db.getUserById(userId).then(results=>{
+        socket.emit('catnip', results);
+    });
+});
+
+/*Part 8:
+3 data flows:
+
+server is responsible for maintaining a list of everyone online
+1. onlineUsers (an event)
+-  a list of everyone online
+- when someone logs in: send this list to the new user.
+- socket.emit()
+2. userJoined
+- this socket event/message will fire when a new person connects
+- info from data base => send to every connected socket exept user.
+- socket.broadcast.emit()
+3. userLeft
+- event for when the user leaves (close tab/logout) a website
+-send message to every connected socket online (every online user)
+- io.sockets.emit()
+
+*/
