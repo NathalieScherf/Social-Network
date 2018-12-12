@@ -356,13 +356,15 @@ io.on('connection', socket =>{
 
     //render chat messages on page before adding a new message:
     db.getChatMessages().then(results =>{
-        console.log('results from old messages', results);
-        socket.emit('oldMessages', results);
+
+        //console.log('results from old messages', results);
+        socket.emit('oldMessages', results.reverse());
     }).catch( err=> {
         console.log("error in get old messages in index.js", err);
     });
 
-    socket.on('newMsg', async msg=>{
+    /*  funkar men lite fusk
+  socket.on('newMsg', async msg=>{
         console.log("msg from chat in index", msg);
         // store in the database, get info about user: first last img.
         await db.insertMsg(userId, msg);
@@ -370,6 +372,22 @@ io.on('connection', socket =>{
         let chatMsgs=  await db.getChatMessages();
         console.log("chatMsgs from index.js",chatMsgs);
         io.sockets.emit('chatMsgs', chatMsgs);
+    });*/
+
+    socket.on('newMsg', msg=>{
+        console.log("msg from chat in index", msg);
+        // store in the database, get info about user: first last img.
+        db.insertMsg(userId, msg).then(results=>{
+            console.log("resutls from insert img", results[0].id);
+            db.getNewChatMessage(results[0].id).then(results=>{
+                console.log("chatMsgs from index.js", results);
+                io.sockets.emit('chatMsgs', results);
+            });
+
+
+        });
+        //get the 10 most recent messages:
+
     });
 
 

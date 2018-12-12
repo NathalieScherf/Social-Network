@@ -84,6 +84,6 @@ export async function listChatMesgs(messages){
     console.log("messages in actions", messages);
     return{
         type: 'LIST_CHAT_MESSAGES',
-        messages: messages
+        newMessages: messages
     };
 }

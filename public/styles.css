@@ -1,12 +1,13 @@
 .page{
-    display: grid;
-
-font-family: 'Source Sans Pro', sans-serif;
-margin: 20px;
+    display: flex;
+    flex-flow: column;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 20px;
 
 }
+
 h1{
-    color: #fb929e;
+    color: #faf7e6;
 }
 .welcome-container{
     text-align: center;
@@ -51,7 +52,7 @@ h1{
     top: 10px;
 }
 .profilepic-container{
-float: right;
+    float: right;
 }
 .profilepic-container img{
 
@@ -69,53 +70,53 @@ float: right;
 
 .profile-header-container{
     background: #05004e;
-display: flex;
-justify-content: space-around;
-padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
 }
 .profile{
     height: 400px;
-    background-color: #fcf8f3;
+    background-color: #faf7e6;
     padding: 20px;
 }
 .profile .profilepic-container img{
-height: 200px;
-width: 200px;
+    height: 200px;
+    width: 200px;
     position: absolute;
     left:60px;
 }
 .bio-text{
     border: 2px solid black;
     position: absolute;
-
+    padding: 10px;
     left: 290px;
 }
 textarea{
     left: 230px;
-    border: 2px solid black;
-    background: #ffcccc;
-    width: 200px;
+    border: 2px solid #05004e;
+    border-radius: 20px;
+    background: #faf7e6;
+    width: 70%;
     height: 300px;
 }
 
 .main-box{
-padding: 20px;
-background: #771144;
+    padding: 20px;
+    background: #771144;
 /*    height: 500px;*/
 }
 
 .opp-container{
-
     background:  #fb929e;
 }
 
 .linksToUsers p{
-display: inline;
-width: 100%;
+    display: inline;
+    width: 100%;
 }
 
- .opp-container img {
-float: left;
+.opp-container img {
+    float: left;
     width: 200px;
     height: auto;
     margin: 10px;
@@ -124,22 +125,21 @@ float: left;
 
 .opp-container .bio{
     border: 2px solid black;
-width: 500px;
-margin: 20px;
+    width: 500px;
+    margin: 20px;
     float:right;
 }
 .bio{
-
-width: 500px;
-margin: 20px;
+    width: 500px;
+    margin: 20px;
    float:right;
 }
 
 .friendsAndWannabes{
     display: flex;
+    flex-flow: column;
     flex-wrap: wrap;
-
-justify-content: space-around;
+    justify-content: space-around;
 }
 
 .friends{
@@ -154,10 +154,10 @@ justify-content: space-around;
 }
 
 .people{
-display: inline;
-padding-top: 30px;
-padding-left: 20px;
-width: 350px;
+    display: inline;
+    padding-top: 30px;
+    padding-left: 20px;
+    width: 350px;
 }
 
 .chat-messages-contianer{
@@ -174,5 +174,18 @@ width: 350px;
     background: white;
     padding-top: 30px;
     padding-left: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
     width: 70%;
+    height: 100%;
+    border: 2px solid #05004e;
+    border-radius: 20px;
+    background: #faf7e6;
+}
+.chatInfo{
+float: right;
+    padding-right: 300px;
+}
+.name{
+    color: black;
 }

@@ -183,3 +183,14 @@ exports.getChatMessages= ()=>{
         return results.rows;
     });
 };
+exports.getNewChatMessage=(id)=>{
+    return db.query(`SELECT users.id, first, last, profilepic, message, created_at
+        FROM users
+        JOIN chat ON sender_id = users.id
+        WHERE chat.id= $1
+        ORDER BY created_at DESC
+                 `, [id]).then(results=>{
+        console.log("results from new message db", results.rows);
+        return results.rows;
+    });
+};

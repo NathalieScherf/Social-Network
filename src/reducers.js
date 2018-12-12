@@ -77,10 +77,11 @@ export default function reducer(state = {}, action) {
         };
     }
     if(action.type=='LIST_CHAT_MESSAGES'){
-        console.log("action from reducer list messages", action.messages);
+        console.log("action from reducer list messages", action.newMessages[0]);
         state = {
             ...state,
-            chatMessages:  action.messages
+            chatMessages:  [...state.chatMessages, action.newMessages[0]]
+
         };
     }
     console.log("state from reducer: ", state);
