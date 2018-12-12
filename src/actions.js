@@ -51,7 +51,6 @@ export async function getOnlineUsers(onliners) {
 
 export async function informAboutNewUser(joiner) {
     console.log("in new users users in actions.js", joiner);
-
     return {
         type: 'NEW_USER_ONLINE',
         newUser: joiner
@@ -66,5 +65,25 @@ export async function removeOnlineUsers(leaverId) {
     return {
         type: 'USERS_DISCONNECT',
         id: leaverId
+    };
+}
+
+//list chat messages:
+
+export async function listOldChat(messages){
+    console.log("oldChat in actions", messages);
+    return{
+        type: 'LIST_OLD_CHAT_MESSAGES',
+        messages: messages
+    };
+}
+
+
+
+export async function listChatMesgs(messages){
+    console.log("messages in actions", messages);
+    return{
+        type: 'LIST_CHAT_MESSAGES',
+        messages: messages
     };
 }

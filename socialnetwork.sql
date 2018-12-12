@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS chat;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
@@ -17,4 +18,11 @@ CREATE TABLE friendships(
     sender_id INTEGER NOT NULL REFERENCES users(id),
     accepted BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+);
+
+CREATE TABLE chat(
+    id SERIAL PRIMARY KEY,
+    sender_id INTEGER NOT NULL REFERENCES users(id),
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

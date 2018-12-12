@@ -315,7 +315,6 @@ server.listen(8080, function() {
 // all of the server side socket code goes here below server.listen
 // onlineUsers object wil maintain a list of everyone cureently online:
 let onlineUsers={};
-// create a console log for when the connetion is open (and an object is returned)
 
 
 io.on('connection', socket =>{
@@ -330,68 +329,48 @@ io.on('connection', socket =>{
 
     //load present users
     db.getOnlineUsers(arrOfIds).then( results =>{
-        console.log('results of query users by id', results.rows);
         socket.emit('onlineUsers', results.rows);
-
     }).catch( err=> {
         console.log("error in get users by ids in index.js", err);
     });
+
+    //add new user without reloading the page:
+    //filter through array of users,  if id only in in there once, it is a new user. => emit broadcast
     console.log(arrOfIds);
     if(arrOfIds.filter(id => id == userId).length == 1){
-
-        console.log(userId);
         db.getUserById(userId).then(results=>{
-
-            console.log("what im sending to user joined", results);
-            socket.broadcast.emit("userJoined", results);});
+            socket.broadcast.emit("userJoined", results);
+        }).catch( err=> {
+            console.log("error in get user by id in index.js", err);
+        });
     }
 
-    //check if user is new, emit brodcast
-    //filter through users, see if id only in in there once, if yes, it is new. => emit broadcast
     socket.on('disconnect', function(){
-
-        console.log(`user with ${userId} just disconnected`);
-        // need to figure out if the user acctuall left the site, not just closed one tab.
-        //check if user id is in object
         delete onlineUsers[socketId];
+        console.log(`user with ${userId} just disconnected`);
+        // figure out if the user really left the site, not just closed one tab.
+        // if user id is not in the object of online users, emit to socket
         if(!Object.values(onlineUsers).includes(userId)){
-
             io.sockets.emit('userLeft', userId);}
     });
 
+    //render chat messages on page before adding a new message:
+    db.getChatMessages().then(results =>{
+        console.log('results from old messages', results);
+        socket.emit('oldMessages', results);
+    }).catch( err=> {
+        console.log("error in get old messages in index.js", err);
+    });
 
-
-
-    //chat: bulid array of 10 most resent messages and emit it to the client. , put it into global state
-    socket.on('chatMessage', msg=>{
+    socket.on('newMsg', async msg=>{
         console.log("msg from chat in index", msg);
-        // store in the database, get info about user: frist last img.
-        //store everythin in an object and send it back to the front, first to socket (io.socket.emit), then redux
-        let chatObj={};
+        // store in the database, get info about user: first last img.
+        await db.insertMsg(userId, msg);
+        //get the 10 most recent messages:
+        let chatMsgs=  await db.getChatMessages();
+        console.log("chatMsgs from index.js",chatMsgs);
+        io.sockets.emit('chatMsgs', chatMsgs);
     });
 
-    //send message to client: two args: name and  data in message
 
-    db.getUserById(userId).then(results=>{
-        socket.emit('catnip', results);
-    });
 });
-
-/*Part 8:
-3 data flows:
-
-server is responsible for maintaining a list of everyone online
-1. onlineUsers (an event)
--  a list of everyone online
-- when someone logs in: send this list to the new user.
-- socket.emit()
-2. userJoined
-- this socket event/message will fire when a new person connects
-- info from data base => send to every connected socket exept user.
-- socket.broadcast.emit()
-3. userLeft
-- event for when the user leaves (close tab/logout) a website
--send message to every connected socket online (every online user)
-- io.sockets.emit()
-
-*/

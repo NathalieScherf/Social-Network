@@ -69,6 +69,20 @@ export default function reducer(state = {}, action) {
 
 
     }
+    if(action.type=='LIST_OLD_CHAT_MESSAGES'){
+        console.log("action from reducer list old messages", action.messages);
+        state = {
+            ...state,
+            chatMessages:  action.messages
+        };
+    }
+    if(action.type=='LIST_CHAT_MESSAGES'){
+        console.log("action from reducer list messages", action.messages);
+        state = {
+            ...state,
+            chatMessages:  action.messages
+        };
+    }
     console.log("state from reducer: ", state);
     return state;
 }

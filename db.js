@@ -43,7 +43,7 @@ exports.getUserById =id =>{
         `SELECT first, last, profilepic, bio, id FROM users
         WHERE id =$1`, [id]
     ). then(function(results){
-        
+
         return results.rows;
     });
 };
@@ -155,4 +155,31 @@ exports.getFandWs =(id)=>{
 exports.getOnlineUsers= (arrayOfIds) => {
     const query = `SELECT id, first, last, profilepic FROM users WHERE id = ANY($1)`;
     return db.query(query, [arrayOfIds]);
+};
+
+//part 9: chat messages insert and extract:
+
+
+exports.insertMsg = (id,msg) => {
+    return db
+        .query(
+            `INSERT INTO  chat (sender_id, message)
+            VALUES ($1, $2)
+            RETURNING *`,
+            [id, msg]
+        )
+        .then(function(results) {
+
+            return results.rows;
+        });
+};
+
+exports.getChatMessages= ()=>{
+    return db.query(`SELECT users.id, first, last, profilepic, message, created_at
+        FROM users
+        JOIN chat ON sender_id = users.id
+        ORDER BY created_at DESC
+                LIMIT 10 `).then(results=>{
+        return results.rows;
+    });
 };

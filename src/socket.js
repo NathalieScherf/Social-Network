@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import {getOnlineUsers, removeOnlineUsers,informAboutNewUser} from './actions';
+import {getOnlineUsers, removeOnlineUsers,informAboutNewUser,listOldChat, listChatMesgs} from './actions';
 
 
 let socket;
@@ -8,7 +8,7 @@ export function initSocket(store){
     if (!socket){
         socket= io.connect();
         //listen for event:
-    
+
 
         socket.on('onlineUsers', listOfOnlineUsers=>{
             console.log('listOfOnlineUsers', listOfOnlineUsers);
@@ -20,13 +20,19 @@ export function initSocket(store){
         socket.on('userLeft', userWhoLeft=>{
             store.dispatch(removeOnlineUsers(userWhoLeft));
         });
+        socket.on('oldMessages', oldMessages=>{
+            console.log("oldMessages from socket", oldMessages);
+            store.dispatch(listOldChat(oldMessages));
+        });
+        socket.on('chatMsgs', messages=>{
+            console.log("chatMsgs from socket", messages);
+            store.dispatch(listChatMesgs(messages));
+        });
         //most of our client side socket code will go here:
         //listen for stuff from the server: on('name of message from server', function )
         //function will run when client hears the event, takes data from socket.emit as agrument
-        socket.on('catnip', message=>{
-            //console.log("message in catnip event: ", message);
+        
 
-        });
     }
     return socket;
 }

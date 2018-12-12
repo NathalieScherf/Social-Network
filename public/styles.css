@@ -158,5 +158,21 @@ display: inline;
 padding-top: 30px;
 padding-left: 20px;
 width: 350px;
+}
 
+.chat-messages-contianer{
+    display: block;
+
+}
+.chat-messages-contianer img{
+    width: 150px;
+    height: auto;
+    border-radius: 20px;
+
+}
+.oldMessages{
+    background: white;
+    padding-top: 30px;
+    padding-left: 20px;
+    width: 70%;
 }
