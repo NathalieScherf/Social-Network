@@ -194,3 +194,31 @@ exports.getNewChatMessage=(id)=>{
         return results.rows;
     });
 };
+//delete account:
+
+
+
+exports.deleteChat = id => {
+    return db
+        .query(`DELETE FROM chat WHERE sender_id =$1`, [id])
+        .then(function(results) {
+            return results.rows;
+        });
+};
+
+exports.deleteFriendship = id => {
+    return db
+        .query(`DELETE FROM friendships WHERE (sender_id = $1 )
+        OR (receiver_id = $1)`, [id])
+        .then(function(results) {
+            return results.rows;
+        });
+};
+
+exports.deleteProfile = id => {
+    return db
+        .query(`DELETE FROM users WHERE id =$1`, [id])
+        .then(function(results) {
+            return results.rows;
+        });
+};

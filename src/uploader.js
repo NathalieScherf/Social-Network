@@ -15,15 +15,33 @@ export default class Uploader extends React.Component{
     }
     handleSubmit(e){
         e.preventDefault();
+
+
+
+
         // use fromData to upload file to server:
         var formData = new FormData();
         formData.append("file", this.state.file);
 
         axios.post('/upload', formData).then(resp=>{
+            //delete image from amazon
+        
+            if(resp.data.success){
 
-            //this.setState({profilePicUrl: resp.data.data[0].profilepic});
+                //check if I have an old image
+                if( this.props.profilePicUrl !== null){
+                    console.log("gibt schon bild", this.props.profilePicUrl);
+                    // remove amazon prefix from image url
+                    var oldImageAmazon= this.props.profilePicUrl;
+                    var amazonPrefix = oldImageAmazon.lastIndexOf('/');
+                    var oldImage= oldImageAmazon.slice(amazonPrefix+1);
+                    console.log(oldImage);
+                    axios.post('/deleteImg', {oldImage});
+                }
+                this.props.changeImg(resp.data.data[0].profilepic);
+            }
             //the state of uploader
-            this.props.changeImg(resp.data.data[0].profilepic);
+
 
         });
 

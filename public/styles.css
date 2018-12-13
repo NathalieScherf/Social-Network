@@ -5,7 +5,9 @@
     margin: 20px;
 
 }
-
+a{
+    color: #faf7e6;
+}
 h1{
     color: #faf7e6;
 }
@@ -36,7 +38,7 @@ h1{
 }
 .uploader{
     position: absolute;
-    background: white;
+    background: #faf7e6;
     border-radius: 20px;
     border: black solid 3px;
     padding: 10px;
@@ -50,6 +52,7 @@ h1{
 .uploader h1{
     float: right;
     top: 10px;
+
 }
 .profilepic-container{
     float: right;
@@ -187,5 +190,13 @@ float: right;
     padding-right: 300px;
 }
 .name{
+    color: black;
+}
+.delete-button{
+    float: right;
+}
+
+.closer h1{
+    text-align: right;
     color: black;
 }

@@ -12,6 +12,7 @@ class Chat extends React.Component{
             console.log("message was sent", e.target.value);
             socket.emit('newMsg', e.target.value);
             e.target.value ='';
+            e.preventDefault();
         }
     }
     /*    componentDidUpdate(){

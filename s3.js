@@ -34,3 +34,12 @@ exports.upload = function(req, res, next) {
         }
     });
 };
+
+exports.deleteImg = function(req,res,next){
+    client.del(req.body.oldImage).on('response', function(res){
+        console.log("from s3 delete image" , res.statusCode);
+        console.log("from s3 delete image", res.headers);
+        next();
+    }).end(); //send end request,
+
+};

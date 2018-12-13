@@ -42,7 +42,7 @@ class Friends extends React.Component {
                     wannabe => {
                         return (
                             <div className='people' key={wannabe.id} >
-                                <img src={wannabe.profilepic} />
+                                <img src={wannabe.profilepic||"/profile_default.png"} />
                                 <h3>{wannabe.first} {wannabe.last}</h3>
                                 <p onClick={() => this.props.dispatch(acceptFriendRequest(wannabe.id))}>Start this friendship</p>
                             </div>

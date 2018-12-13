@@ -251,8 +251,42 @@ app.get('/friendsAndWannabes', function(req,res){
 
     });
 });
+app.post('/deleteProfile/:id', function(req,res){
+    console.log("delete acount");
+    //delete chat and friendships first, user last
+    let promisesToDelete = [];
+
+    promisesToDelete.push(
+        db.deleteChat(req.session.userId).then(function(results) {
+            console.log("from delete chat: ", results);
+        })
+    );
+
+    promisesToDelete.push(db.deleteFriendship(req.session.userId));
+
+    Promise.all(promisesToDelete)
+        .then(db.deleteProfile(req.session.userId))
+        .then(function() {
+            console.log("delteted everything");
+            req.session = null;
+            res.json({
+                userDeleted: true
+            });
+        })
+        .catch(function(err) {
+            console.log(err);
+
+        });
+});
+
+app.post('/deleteImg', s3.deleteImg,  function(req,res){
+    console.log("from delete img post");
+    //send ok respons
+    res.sendStatus(200);
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
-    console.log(req.file);
+    console.log("from upload route in index", req.file);
     // If nothing went wrong the file is already in the uploads directory
     if (req.file) {
 

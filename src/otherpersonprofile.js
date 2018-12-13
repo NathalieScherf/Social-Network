@@ -38,7 +38,7 @@ export default class OtherPersonProfile extends React.Component{
                     <br/>
                     <p><Link to='/user/3'>user 3</Link></p></div>
                 <div className='profile'>
-                    <h1> You are visiting: {this.state.first} {this.state.last}</h1>
+                    <h4> You are visiting: {this.state.first} {this.state.last}</h4>
                     {this.state.profilePicUrl == null && <div className='otherImg'>
                         <img className='smallimg' src={"/profile_default.png"} />
                     </div>}
