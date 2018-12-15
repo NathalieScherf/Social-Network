@@ -29,7 +29,7 @@ class Friends extends React.Component {
                                     <img onClick={() => this.goToFriend(friend.id)} src={friend.profilepic||"/profile_default.png"} />
 
                                     <h3>{friend.first} {friend.last}</h3>
-                                    <p onClick={() => this.props.dispatch(unfriend(friend.id))}>End this friendship</p>
+                                    <p className='plink' onClick={() => this.props.dispatch(unfriend(friend.id))}>End this friendship</p>
                                 </div>
                             );
                         }

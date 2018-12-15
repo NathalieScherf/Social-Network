@@ -69,10 +69,10 @@ export default class FriendButton extends React.Component{
         return(
             <div className="friend-container">
                 {this.state.status=='noFriendship' &&
-                    <button onClick={this.sendFriendRequest} name='friend' > send a friend request </button>}
-                {this.state.status==='pending' && <button onClick={this.acceptFriendRequest} name='friend' > accept friend request </button>}
-                {this.state.status==='withdraw' && <button onClick={this.deleteFriendship} name='friend' > cancel request </button>}
-                {this.state.status==='friends' && <button onClick={this.deleteFriendship} name='friend' > delete friendship </button>}
+                    <button onClick={this.sendFriendRequest} name='friend' className='link' > send a friend request </button>}
+                {this.state.status==='pending' && <button onClick={this.acceptFriendRequest} name='friend' className='link' > accept friend request </button>}
+                {this.state.status==='withdraw' && <button onClick={this.deleteFriendship} name='friend'  className='link'> cancel request </button>}
+                {this.state.status==='friends' && <button onClick={this.deleteFriendship} name='friend'  className='link'> delete friendship </button>}
             </div>
         );
     }

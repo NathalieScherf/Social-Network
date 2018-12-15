@@ -11,16 +11,19 @@ a{
 h1{
     color: #faf7e6;
 }
+.plink:hover{
+    text-decoration: underline;}
+
 .welcome-container{
     text-align: center;
     border: 3px solid black;
-    background: #771144;
+    background: #05004e;
     padding: 10px;
 
 }
 .registration-container{
     border: 3px solid black;
-    background: gray;
+    background: #771144;
 }
 .form{
     margin: 20px;
@@ -35,6 +38,7 @@ h1{
 .logo{
     height: 100px;
     width: auto;
+    border-radius: 50%;
 }
 .uploader{
     position: absolute;
@@ -101,6 +105,7 @@ textarea{
     background: #faf7e6;
     width: 70%;
     height: 300px;
+    padding: 10px;
 }
 
 .main-box{

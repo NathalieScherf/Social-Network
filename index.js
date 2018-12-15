@@ -331,6 +331,10 @@ app.get('/welcome', function(req, res) {
     }
 });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/");
+});
 // put any other get route above this route:
 app.get('*', function(req, res) {
     if (!req.session.userId) {

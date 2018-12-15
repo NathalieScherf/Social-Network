@@ -12,7 +12,7 @@ export default function ProfilePic(props){
     else{
         return(
             <div className='profilepic-container'>
-                <h1>{props.first} </h1>
+                <h1>{props.first} {props.last}</h1>
                 <img className='smallimg' onClick={props.showUploader} src={"/profile_default.png"} />
 
             </div>

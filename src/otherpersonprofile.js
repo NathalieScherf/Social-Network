@@ -31,12 +31,7 @@ export default class OtherPersonProfile extends React.Component{
         return (
             <div className='opp-container'>
 
-                <div className='linksToUsers'>
-                    <p><Link to='/user/1'>user 1</Link></p>
-                    <br/>
-                    <p><Link to='/user/2'>user 2</Link></p>
-                    <br/>
-                    <p><Link to='/user/3'>user 3</Link></p></div>
+                
                 <div className='profile'>
                     <h4> You are visiting: {this.state.first} {this.state.last}</h4>
                     {this.state.profilePicUrl == null && <div className='otherImg'>

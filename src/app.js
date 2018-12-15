@@ -75,6 +75,8 @@ export default class App extends React.Component{
                     <br/>
                     <a href="/onlineUsers">online users</a>
                     <br/>
+                    <a href="/logout"> log out </a>
+                    <br/>
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}

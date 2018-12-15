@@ -39,7 +39,7 @@ export default class DeleteProfile extends React.Component{
         return(
             <div className="delete-button">
 
-                <button onClick={this.deleteProfile} name='deleteProfile' > Delete my account  </button>
+                <button onClick={this.deleteProfile} name='deleteProfile' className='link' > Delete my account  </button>
 
             </div>
         );

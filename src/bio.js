@@ -52,7 +52,7 @@ export default class Bio extends React.Component{
                 <div className='bio-text'>
                     <p>Bio:</p>
                     <p>{this.props.bio}</p>
-                    <p onClick={this.showEditor}> Edit your bio</p>
+                    <p className='plink' onClick={this.showEditor}> Edit your bio</p>
                 </div>);
         }
         else if(this.state.editing){
@@ -63,14 +63,14 @@ export default class Bio extends React.Component{
                         <label>
                             <textarea name='bio'  onChange={this.handleChange} />
                         </label>
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Submit"/>
                     </form>
                 </div>);
         }
         else {
             return(
                 <div className='bio-text'>
-                    <p onClick={this.showEditor}> Edit your bio</p>
+                    <p className='plink' onClick={this.showEditor}> Edit your bio</p>
                 </div>);}
     }
 
