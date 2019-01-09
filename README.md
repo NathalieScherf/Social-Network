@@ -1,18 +1,18 @@
 # Social-Network
 
 A basic social network with interactive functions: 
-	* A profile page with an image and bio, including a upload function as well as a delete function for the whole account. 
-	* A page to view your friends and friend requests
-	* Functions to send and accept friend requests as well as functions to end friendships or remove  pending requests
-	* A chat for all users
+* A profile page with an image and bio, including a upload function as well as a delete function for the whole account. 
+* A page to view your friends and friend requests
+* Functions to send and accept friend requests as well as functions to end friendships or remove  pending requests
+* A chat for all users
 
-## Technologies: 
-	* React/Redux
-	* Socket.io
-	* Node.js
-	* AWS  S3 and Knox
-	* PostgreSQL
-	* HTML5/CSS3
+## Technologies
+* React/Redux
+* Socket.io
+* Node.js
+* AWS  S3 and Knox
+* PostgreSQL
+* HTML5/CSS3
 
 ## Description: 
 
