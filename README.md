@@ -2,7 +2,7 @@
 
 A basic social network with interactive functions: 
 
-* A profile page with an image and bio, including a upload function as well as a delete function for the whole account. 
+* A profile page with an image and bio, including a upload function as well as a delete function for the  account. 
 * A page to view your friends and friend requests
 * Functions to send and accept friend requests as well as functions to end friendships or remove  pending requests
 * A chat for all users
@@ -30,7 +30,7 @@ On the profile page, the bio can be added/changed and a profile picture uploaded
 
 ![ProfilePage](/ImgsRM/ImageandBio.PNG)
 
-This is waht the page looks like if an other user  views your profile. They can send you a friend request, or delete an existing friendship. 
+This is what the page looks like if an other user  views your profile. They can send you a friend request, or delete an existing friendship. 
 
 ![Otheruser](/ImgsRM/ViewOtherUser.PNG) 
 
